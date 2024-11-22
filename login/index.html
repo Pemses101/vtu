@@ -25,10 +25,37 @@
       z-index: 0; /* Ensures iframe is below all other content */
     }
 
-    .download-icon {
+    .download-container {
       position: fixed;
       bottom: 20px;
       right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .close-btn {
+      background-color: #333;
+      color: white;
+      font-size: 12px;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 5px;
+    }
+
+    .close-btn:hover {
+      background-color: red;
+    }
+
+    .download-icon {
       width: 50px;
       height: 50px;
       background-color: red;
@@ -40,7 +67,6 @@
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease-in-out;
-      z-index: 1000; /* Ensures it stays above iframe */
     }
 
     .download-icon:hover {
@@ -75,12 +101,17 @@
 <body>
   <iframe src="https://sabuss.com/klickvtu3?login"></iframe>
 
-  <div id="downloadButton" class="download-icon" onclick="downloadApp(event)">
-    <i class="fa fa-download"></i>
+  <div class="download-container">
+    <button class="close-btn" id="closeButton" title="Remove Download Button">×</button>
+    <div id="downloadButton" class="download-icon" onclick="downloadApp(event)">
+      <i class="fa fa-download"></i>
+    </div>
   </div>
 
   <script>
     const downloadButton = document.getElementById('downloadButton');
+    const closeButton = document.getElementById('closeButton');
+    const downloadContainer = document.querySelector('.download-container');
 
     function downloadApp(event) {
       event.stopPropagation(); // Prevent click event from bubbling up to the document
@@ -102,6 +133,11 @@
         downloadButton.classList.remove('expanded');
         downloadButton.innerHTML = '<i class="fa fa-download"></i>';
       }
+    });
+
+    // Remove the download button when the close button is clicked
+    closeButton.addEventListener('click', () => {
+      downloadContainer.style.display = 'none';
     });
   </script>
 </body>
