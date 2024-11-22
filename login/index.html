@@ -70,38 +70,20 @@
       font-size: 14px;
       white-space: nowrap;
     }
-
-    /* Responsive Adjustments */
-/*     @media (max-width: 768px) {
-      .download-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        bottom: 15px;
-        right: 15px;
-      }
-
-      .expanded {
-        padding: 8px 16px;
-      }
-
-      .expanded span {
-        font-size: 12px;
-      }
-    } */
   </style>
 </head>
 <body>
   <iframe src="https://sabuss.com/klickvtu3?login"></iframe>
 
-  <div id="downloadButton" class="download-icon" onclick="downloadApp()">
+  <div id="downloadButton" class="download-icon" onclick="downloadApp(event)">
     <i class="fa fa-download"></i>
   </div>
 
   <script>
     const downloadButton = document.getElementById('downloadButton');
 
-    function downloadApp() {
+    function downloadApp(event) {
+      event.stopPropagation(); // Prevent click event from bubbling up to the document
       if (!downloadButton.classList.contains('expanded')) {
         // Expand the button to show text
         downloadButton.classList.add('expanded');
@@ -113,6 +95,14 @@
         downloadButton.innerHTML = '<i class="fa fa-download"></i>';
       }
     }
+
+    // Collapse the expanded button when clicking anywhere else
+    document.addEventListener('click', () => {
+      if (downloadButton.classList.contains('expanded')) {
+        downloadButton.classList.remove('expanded');
+        downloadButton.innerHTML = '<i class="fa fa-download"></i>';
+      }
+    });
   </script>
 </body>
 </html>
