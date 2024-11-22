@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeeThree VTU Dashbord</title>
+  <title>GeeThree VTU Dashboard</title>
+  <!-- Font Awesome Link -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <style>
     body {
@@ -16,47 +17,103 @@
 
     iframe {
       width: 100%;
-      height: calc(100vh - 50px);
+      height: 100%;
       border: none;
     }
 
-    .bottom-space {
-      width: 100%;
+    .download-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
       height: 50px;
-      background-color: #333;
-      color: #fff;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      top: 0;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease-in-out;
+      z-index: 1000;
     }
 
-    .bottom-space a {
-      color: #ffd700;
-      text-decoration: none;
-      font-weight: bold;
-      margin-left: 5px;
+    .download-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .download-icon .fa {
+      font-size: 20px;
+    }
+
+    .expanded {
+      width: auto;
+      height: auto;
+      padding: 10px 20px;
+      border-radius: 30px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
-    .bottom-space a:hover {
-      text-decoration: underline;
+    .expanded .fa {
+      font-size: 16px;
     }
 
-    .fa-download {
-      margin-right: 5px;
+    .expanded span {
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .download-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .expanded {
+        padding: 8px 16px;
+      }
+
+      .expanded span {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 <body>
-    <div class="bottom-space">
-        Download our mobile app now!
-        <a href="https://apk.e-droid.net/apk/app3380544-v9kmpz.apk?v=2" target="_blank">
-          <i class="fa fa-download"></i> Click Here
-        </a>
-      </div>
   <iframe src="https://sabuss.com/klickvtu3?login"></iframe>
+
+  <div id="downloadButton" class="download-icon">
+    <i class="fa fa-download"></i>
+  </div>
+
+  <script>
+    const downloadButton = document.getElementById('downloadButton');
+
+    // Handle click or touch
+    downloadButton.addEventListener('click', toggleDownloadButton);
+    downloadButton.addEventListener('touchstart', toggleDownloadButton);
+
+    function toggleDownloadButton(event) {
+      event.preventDefault();
+      if (!downloadButton.classList.contains('expanded')) {
+        // Expand the button to show text
+        downloadButton.classList.add('expanded');
+        downloadButton.innerHTML = '<i class="fa fa-download"></i><span>Download our app now!</span>';
+      } else {
+        // Trigger download and collapse back
+        window.open('https://apk.e-droid.net/apk/app3380544-v9kmpz.apk?v=2', '_blank');
+        downloadButton.classList.remove('expanded');
+        downloadButton.innerHTML = '<i class="fa fa-download"></i>';
+      }
+    }
+  </script>
 </body>
 </html>
